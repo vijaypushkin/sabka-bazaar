@@ -55,7 +55,7 @@ await server.start();
 
 // * Static Files # start
 const staticFilesPath = path.join(
-  import.meta.url.split("/").slice(0, -2).slice(1).join("/"),
+  import.meta.url.split("/").slice(1, -2).join("/"),
   "public"
 );
 
