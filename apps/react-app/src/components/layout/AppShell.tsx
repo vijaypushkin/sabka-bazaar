@@ -1,5 +1,5 @@
 import { AppShell as BaseAppShell, Navbar, Header } from "@mantine/core";
-import React from "react";
+import React, { Suspense } from "react";
 
 const AppShell: React.FC<{ children: React.ReactElement }> = (props) => {
   return (
@@ -24,7 +24,7 @@ const AppShell: React.FC<{ children: React.ReactElement }> = (props) => {
         },
       })}
     >
-      {props.children}
+      <Suspense fallback={<div>Loading...</div>}>{props.children}</Suspense>
     </BaseAppShell>
   );
 };
