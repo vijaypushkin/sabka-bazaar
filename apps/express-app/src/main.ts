@@ -8,6 +8,7 @@ import "dotenv/config";
 
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolvers";
+import path from "path";
 
 const host = process.env.HOST ?? "localhost";
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -52,6 +53,15 @@ await server.start();
 //   res.send({ message: 'Hello API' });
 // });
 
+// * Static Files # start
+const staticFilesPath = path.join(
+  import.meta.url.split("/").slice(0, -2).slice(1).join("/"),
+  "public"
+);
+
+app.use("/static", express.static(staticFilesPath));
+// * Static Files # end
+
 // * Express Middleware # start
 app.use(
   "/graphql",
@@ -60,6 +70,7 @@ app.use(
   expressMiddleware(server)
 );
 // * Express Middleware # end
+
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}`);
 });
