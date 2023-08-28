@@ -3,7 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 
 import router from "./router";
-import client from "./utils/apollo-client";
+import client from "./graphql/apollo-client";
 
 function App() {
   return (

@@ -9,14 +9,17 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <AppShell />,
+    errorElement: <div>Something went wrong</div>,
     children: [
       {
         path: "/",
         element: <HomePage />,
+        errorElement: <div>Something went wrong</div>,
       },
       {
         path: "/categories",
         element: <CategoriesPage />,
+        errorElement: <div>Something went wrong</div>,
       },
     ],
   },

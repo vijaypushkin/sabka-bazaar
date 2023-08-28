@@ -1,3 +1,1 @@
-export interface TestType {
-  test: string;
-}
+export * from "./categories.type";

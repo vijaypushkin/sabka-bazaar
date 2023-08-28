@@ -6,6 +6,7 @@ const typeDef = `#graphql
 
     categories: [Category],
     category(id: ID!): Category,
+    parentCategories: [Category],
     childCategories(parentId: ID!): [Category],
   }
 

@@ -5,6 +5,12 @@ const getAllCategories = async () => {
   return categories;
 };
 
+const getParentCategories = async () => {
+  const categories = await Category.find();
+
+  return categories.filter((category) => category.children.length > 0);
+};
+
 const getCategoryById = async (id: string) => {
   const category = await Category.findOne({ categoryID: id });
   return category;
@@ -28,6 +34,7 @@ const CategoryService = {
   getAllCategories,
   getCategoryById,
   getChildCategories,
+  getParentCategories,
 };
 
 export default CategoryService;
