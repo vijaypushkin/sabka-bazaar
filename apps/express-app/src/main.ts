@@ -18,11 +18,12 @@ const mongodbUrl = process.env.MONGODB_CONNECTION_STRING ?? "";
 mongoose.connect(mongodbUrl);
 
 mongoose.connection.on("error", (err) => {
+  console.log("Failed to connect to MongoDB");
   console.error(err);
   process.exit(1);
 });
 
-mongoose.connection.on("on", () => {
+mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
 });
 // * Mongoose # end
