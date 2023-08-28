@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { AppShell as BaseAppShell, Navbar, Header } from "@mantine/core";
+import { Outlet } from "react-router-dom";
 
-const AppShell: React.FC<{ children: React.ReactElement }> = (props) => {
+const AppShell: React.FC = () => {
   return (
     <BaseAppShell
       padding="md"
@@ -24,7 +25,9 @@ const AppShell: React.FC<{ children: React.ReactElement }> = (props) => {
         },
       })}
     >
-      {props.children}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </BaseAppShell>
   );
 };

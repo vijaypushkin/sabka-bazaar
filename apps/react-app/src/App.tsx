@@ -1,15 +1,16 @@
 import { MantineProvider } from "@mantine/core";
 import { RouterProvider } from "react-router-dom";
-import AppShell from "./components/layout/AppShell";
+import { ApolloProvider } from "@apollo/client";
 
 import router from "./router";
+import client from "./utils/apollo-client";
 
 function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <AppShell>
+      <ApolloProvider client={client}>
         <RouterProvider router={router} />
-      </AppShell>
+      </ApolloProvider>
     </MantineProvider>
   );
 }
