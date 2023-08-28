@@ -1,29 +1,93 @@
-import React, { Suspense } from "react";
-import { AppShell as BaseAppShell, Navbar, Header } from "@mantine/core";
-import { Outlet } from "react-router-dom";
+import React, { Suspense, useState } from "react";
+import {
+  AppShell as BaseAppShell,
+  Navbar,
+  Header,
+  Title,
+  Stack,
+  Flex,
+  useMantineTheme,
+  MediaQuery,
+  Burger,
+  Text,
+  Footer,
+  Aside,
+} from "@mantine/core";
+import { Link, Outlet } from "react-router-dom";
 
 const AppShell: React.FC = () => {
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
+
   return (
     <BaseAppShell
-      padding="md"
-      navbar={
-        <Navbar width={{ base: 300 }} height={"100%"} p="xs">
-          <div>AppBar</div>
-        </Navbar>
-      }
-      header={
-        <Header height={60} p="xs">
-          <div>Sabka Bazaar</div>
-        </Header>
-      }
-      styles={(theme) => ({
+      styles={{
         main: {
-          backgroundColor:
+          background:
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[0],
         },
-      })}
+      }}
+      navbarOffsetBreakpoint="sm"
+      asideOffsetBreakpoint="sm"
+      navbar={
+        <Navbar
+          p="md"
+          hiddenBreakpoint="sm"
+          hidden={!opened}
+          width={{ sm: 200, lg: 300 }}
+        >
+          <Text>Application navbar</Text>
+        </Navbar>
+      }
+      aside={
+        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+          <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
+            <Text>Application sidebar</Text>
+          </Aside>
+        </MediaQuery>
+      }
+      footer={
+        <Footer height={60} p="md">
+          Application footer
+        </Footer>
+      }
+      header={
+        <Header height={{ base: 50, md: 70 }} p="md">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
+
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              <Title sx={{ marginRight: 24 }}>Sabka Bazaar</Title>
+            </MediaQuery>
+            <Flex
+              mih={50}
+              gap="md"
+              justify="flex-start"
+              align="center"
+              direction="row"
+            >
+              <Link to="/">Home</Link>
+              <Link to="/categories">Categories</Link>
+            </Flex>
+          </div>
+        </Header>
+      }
     >
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
