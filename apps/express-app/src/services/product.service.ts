@@ -1,7 +1,7 @@
 import Product from "../models/product.model";
 
-const getAllProducts = async () => {
-  const products = await Product.find();
+const getAllProducts = async (limit: number, offset: number) => {
+  const products = await Product.find().limit(limit).skip(offset);
   console.log(products);
 
   return products;

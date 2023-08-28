@@ -1,12 +1,16 @@
 const typeDef = `#graphql
   type Query {
-    products: [Product]
-    product(id: ID!): Product
-    productsByCategory(category: String!): [Product]
+    products(limit: Int!, offset: Int!): [Product],
+    product(id: ID!): Product,
+    productsByCategory(category: String!): [Product],
+
+    categories: [Category],
+    category(id: ID!): Category,
+    childCategories(parentId: ID!): [Category],
   }
 
   type Product {
-    _id: ID!
+    _id: ID!,
     productName: String,
     brand: String,
     description: String,
@@ -19,6 +23,13 @@ const typeDef = `#graphql
     isAvailable: Boolean,
     images: [String],
     packSize: String,
+  }
+
+  type Category {
+    _id: ID!,
+    categoryID: String,
+    name: String,
+    children: [String]
   }
 `;
 
