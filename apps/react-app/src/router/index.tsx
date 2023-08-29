@@ -21,6 +21,11 @@ const router = createBrowserRouter([
         element: <CategoriesPage />,
         errorElement: <div>Something went wrong</div>,
       },
+      {
+        path: "/categories/:id",
+        element: <div>Category</div>,
+        errorElement: <div>Something went wrong</div>,
+      },
     ],
   },
 ]);

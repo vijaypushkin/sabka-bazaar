@@ -1,17 +1,13 @@
 import React, { Suspense, useState } from "react";
 import {
   AppShell as BaseAppShell,
-  Navbar,
   Header,
   Title,
-  Stack,
   Flex,
   useMantineTheme,
   MediaQuery,
   Burger,
-  Text,
   Footer,
-  Aside,
 } from "@mantine/core";
 import { Link, Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
