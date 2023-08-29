@@ -9,6 +9,7 @@ import "dotenv/config";
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolvers";
 import path from "path";
+import AuthController from "./controller/auth.controller";
 
 const host = process.env.HOST ?? "localhost";
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -30,28 +31,17 @@ mongoose.connection.on("connected", () => {
 // * Mongoose # end
 
 // * Apollo Server # start
-// const typeDefs = `#graphql
-//   type Query {
-//     hello: String
-//   }
-// `;
-
-// const resolvers = {
-//   Query: {
-//     hello: () => {
-//       return "Hello World";
-//     },
-//   },
-// };
-
 const server = new ApolloServer({ typeDefs, resolvers });
 
 await server.start();
 // * Apollo Server # end
 
-// app.get('/', (req, res) => {
-//   res.send({ message: 'Hello API' });
-// });
+app.get("/", (req, res) => {
+  res.send({ message: "Hello API" });
+});
+
+app.post("/api/auth/sign-in", AuthController.handleSignIn);
+app.post("/api/auth/sign-up", AuthController.handleSignUp);
 
 // * Static Files # start
 const staticFilesPath = path.join(
