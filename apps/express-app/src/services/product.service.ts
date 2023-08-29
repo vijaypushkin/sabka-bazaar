@@ -14,7 +14,7 @@ const getProductById = async (id: string) => {
 };
 
 const getProductsByCategory = async (category: string) => {
-  return await Product.find({ categories: [category] });
+  return await Product.find({ categories: category });
 };
 
 const ProductService = {
