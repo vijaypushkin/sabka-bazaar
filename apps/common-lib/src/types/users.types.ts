@@ -6,3 +6,4 @@ export interface UserDocument {
 }
 
 export type UserDocumentSansID = Omit<UserDocument, "_id">;
+export type UserDocumentDefault = Omit<UserDocument, "password">;

@@ -11,6 +11,7 @@ import {
 import { SignUpFormValues } from "common-lib/types";
 import AuthAPI from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
+import { useLazyGetUser } from "../../graphql/queries/user.query";
 
 // import styles from './SignUpForm.module.scss';
 
@@ -20,6 +21,8 @@ interface SignUpFormProps {
 
 const SignUpForm: React.FC<SignUpFormProps> = (props) => {
   const navigate = useNavigate();
+  const [_, { refetch }] = useLazyGetUser();
+
   const form = useForm<SignUpFormValues>({
     initialValues: {
       name: "",
@@ -51,6 +54,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
     localStorage.setItem("token", data.data.token);
     console.log(data);
     navigate("/");
+    refetch();
   };
 
   return (

@@ -6,6 +6,7 @@ import {
   UserDocument,
   UserDocumentSansID,
 } from "common-lib/src/types/users.types";
+import { GraphQLError } from "graphql";
 
 // Give a random phrase to generate a secret key
 const SECRET_KEY = "a random phrase";
@@ -91,10 +92,44 @@ const getUserByToken = (token: string): UserDocument | null => {
   return user;
 };
 
+const getUser = async (
+  parent,
+  args,
+  context,
+  info
+): Promise<UserDocument | null> => {
+  const user = authGuard(args, context);
+
+  return user;
+};
+
+/**
+ * @throws GraphQLError
+ * @param args
+ * @param context
+ * @returns
+ */
+const authGuard = (args, context) => {
+  const user = getUserByToken(context.authorization);
+
+  if (!user) {
+    throw new GraphQLError("User is not authenticated", {
+      extensions: {
+        code: "UNAUTHENTICATED",
+        http: { status: 401 },
+      },
+    });
+  }
+
+  return user;
+};
+
 const AuthService = {
   createUser,
   signinUser,
   getUserByToken,
+  getUser,
+  authGuard,
 };
 
 export default AuthService;

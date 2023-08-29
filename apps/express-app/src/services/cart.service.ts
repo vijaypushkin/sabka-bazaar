@@ -1,30 +1,8 @@
 import Cart from "../models/cart.model";
 import AuthService from "./auth.service";
-import { GraphQLError } from "graphql";
-
-/**
- * @throws GraphQLError
- * @param args
- * @param context
- * @returns
- */
-const authGuard = (args, context) => {
-  const user = AuthService.getUserByToken(context.authorization);
-
-  if (!user) {
-    throw new GraphQLError("User is not authenticated", {
-      extensions: {
-        code: "UNAUTHENTICATED",
-        http: { status: 401 },
-      },
-    });
-  }
-
-  return user;
-};
 
 const getUserCart = async (parent, args, context, info) => {
-  const user = authGuard(args, context);
+  const user = AuthService.authGuard(args, context);
 
   const { userId } = args;
   const cart = await Cart.findOne({
@@ -44,7 +22,7 @@ const getUserCart = async (parent, args, context, info) => {
 };
 
 const addProductToCart = async (parent, args, context, info) => {
-  const user = authGuard(args, context);
+  const user = AuthService.authGuard(args, context);
 
   const { productId, quantity } = args;
   const cart = await Cart.findOneAndUpdate(
@@ -68,7 +46,7 @@ const addProductToCart = async (parent, args, context, info) => {
 };
 
 const removeProductFromCart = async (parent, args, context, info) => {
-  const user = authGuard(args, context);
+  const user = AuthService.authGuard(args, context);
 
   const { productId } = args;
   const cart = await Cart.findOneAndUpdate(
@@ -90,7 +68,7 @@ const removeProductFromCart = async (parent, args, context, info) => {
 };
 
 const updateProductQuantityInCart = async (parent, args, context, info) => {
-  const user = authGuard(args, context);
+  const user = AuthService.authGuard(args, context);
 
   const { productId, quantity } = args;
   const cart = await Cart.findOneAndUpdate(

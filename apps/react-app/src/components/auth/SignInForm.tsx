@@ -11,6 +11,7 @@ import {
 import { SignInFormValues } from "common-lib/types";
 import AuthAPI from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
+import { useLazyGetUser } from "../../graphql/queries/user.query";
 
 // import styles from './SignUpForm.module.scss';
 
@@ -20,6 +21,8 @@ interface SignInFormProps {
 
 const SignInForm: React.FC<SignInFormProps> = (props) => {
   const navigate = useNavigate();
+  const [_, { refetch }] = useLazyGetUser();
+
   const form = useForm<SignInFormValues>({
     initialValues: {
       email: "",
@@ -45,6 +48,7 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
 
     localStorage.setItem("token", data.data.token);
     navigate("/");
+    refetch();
   };
 
   return (

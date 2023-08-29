@@ -6,8 +6,6 @@ import {
   Group,
   useMantineTheme,
   Text,
-  Flex,
-  Paper,
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { ProductDatum } from "common-lib/types";

@@ -1,5 +1,7 @@
 const typeDef = `#graphql
   type Query {
+    user: User,
+
     products(limit: Int!, offset: Int!): [Product],
     product(id: ID!): Product,
     productsByCategory(category: String!): [Product],
@@ -18,6 +20,12 @@ const typeDef = `#graphql
     addProductToCart(productId: String!, quantity: Int!): Cart,
     removeProductFromCart(productId: String!): Cart,
     updateProductQuantityInCart(productId: String!, quantity: Int!): Cart,
+  }
+
+  type User {
+    _id: ID!,
+    name: String,
+    email: String,
   }
 
   type Product {
