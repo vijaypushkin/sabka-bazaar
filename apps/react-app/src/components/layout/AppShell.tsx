@@ -1,15 +1,6 @@
 import React, { Suspense, useState } from "react";
-import {
-  AppShell as BaseAppShell,
-  Header,
-  Title,
-  Flex,
-  useMantineTheme,
-  MediaQuery,
-  Burger,
-  Footer,
-} from "@mantine/core";
-import { Link, Outlet } from "react-router-dom";
+import { AppShell as BaseAppShell, useMantineTheme } from "@mantine/core";
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import AppBar from "./AppBar";
 

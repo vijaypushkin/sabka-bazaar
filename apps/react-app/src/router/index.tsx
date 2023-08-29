@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import AppShell from "../components/layout/AppShell";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 const HomePage = React.lazy(() => import("../pages"));
 const CategoriesPage = React.lazy(() => import("../pages/categories"));
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage />,
+        element: (
+          <ProtectedRoute>
+            <CartPage />
+          </ProtectedRoute>
+        ),
         errorElement: <div>Something went wrong</div>,
       },
     ],
