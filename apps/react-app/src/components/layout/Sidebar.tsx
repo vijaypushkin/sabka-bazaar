@@ -24,6 +24,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
           {category.children?.map((child) => (
             <Link to={`/categories/${child.categoryID}`} key={child.categoryID}>
               <NavLink
+                component="span"
                 key={child._id}
                 label={child.name}
                 active={location.pathname === `/categories/${child.categoryID}`}

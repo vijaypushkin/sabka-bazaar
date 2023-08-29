@@ -8,6 +8,9 @@ import {
   PasswordInput,
   Title,
 } from "@mantine/core";
+import { SignInFormValues } from "common-lib/types";
+import AuthAPI from "../../api/auth.api";
+import { useNavigate } from "react-router-dom";
 
 // import styles from './SignUpForm.module.scss';
 
@@ -15,11 +18,8 @@ interface SignInFormProps {
   onSignUpClick: () => void;
 }
 
-interface SignInFormValues {
-  email: string;
-  password: string;
-}
 const SignInForm: React.FC<SignInFormProps> = (props) => {
+  const navigate = useNavigate();
   const form = useForm<SignInFormValues>({
     initialValues: {
       email: "",
@@ -35,12 +35,24 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
     },
   });
 
+  const handleSubmit = async (values: SignInFormValues) => {
+    const [data, error] = await AuthAPI.signInUser(values);
+
+    if (error != null) {
+      console.log(error);
+      return void 0;
+    }
+
+    localStorage.setItem("token", data.data.token);
+    navigate("/");
+  };
+
   return (
     <Box
       component="form"
       maw={400}
       mx="auto"
-      onSubmit={form.onSubmit(() => {})}
+      onSubmit={form.onSubmit(handleSubmit)}
     >
       <Title order={3} align="center">
         Sign In

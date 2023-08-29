@@ -1,4 +1,5 @@
 import {
+  Box,
   Burger,
   Button,
   Flex,
@@ -20,12 +21,13 @@ const AppBar: React.FC<AppBarProps> = (props) => {
 
   return (
     <Header height={{ base: 50, md: 70 }} p="md">
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           alignItems: "center",
           height: "100%",
         }}
+        component="nav"
       >
         <MediaQuery largerThan="sm" styles={{ display: "none" }}>
           <Burger
@@ -61,15 +63,13 @@ const AppBar: React.FC<AppBarProps> = (props) => {
             </Link>
           </Flex>
 
-          <div>
-            <Link to="/cart">
-              <Button variant="filled" component="span">
-                Cart
-              </Button>
-            </Link>
-          </div>
+          <Link to="/cart">
+            <Button variant="filled" component="span">
+              Cart
+            </Button>
+          </Link>
         </Flex>
-      </div>
+      </Box>
     </Header>
   );
 };

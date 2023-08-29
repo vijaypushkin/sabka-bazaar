@@ -39,6 +39,8 @@ await server.start();
 // * Apollo Server # end
 
 // * REST Endpoints # start
+app.use("/api/*", cors<cors.CorsRequest>(), pkg.json());
+
 app.get("/", (req, res) => {
   res.send({ message: "Hello API" });
 });

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import AuthService from "../services/auth.service";
 
 const handleSignUp = async (req: Request, res: Response) => {
+  console.log(req.body);
   const { name, email, password, confirmPassword } = req.body;
 
   if (password !== confirmPassword) {

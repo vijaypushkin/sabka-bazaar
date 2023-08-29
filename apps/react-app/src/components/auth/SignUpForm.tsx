@@ -8,6 +8,9 @@ import {
   PasswordInput,
   Title,
 } from "@mantine/core";
+import { SignUpFormValues } from "common-lib/types";
+import AuthAPI from "../../api/auth.api";
+import { useNavigate } from "react-router-dom";
 
 // import styles from './SignUpForm.module.scss';
 
@@ -15,13 +18,8 @@ interface SignUpFormProps {
   onSignInClick: () => void;
 }
 
-interface SignUpFormValues {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 const SignUpForm: React.FC<SignUpFormProps> = (props) => {
+  const navigate = useNavigate();
   const form = useForm<SignUpFormValues>({
     initialValues: {
       name: "",
@@ -31,7 +29,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
     },
 
     validate: {
-      name: hasLength({ min: 2, max: 10 }, "Name must be 2-10 characters long"),
+      name: hasLength({ min: 2 }, "Name must be minimum 2 characters long"),
       email: isEmail("Invalid email"),
       password: hasLength(
         { min: 8, max: 20 },
@@ -42,12 +40,25 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
     },
   });
 
+  const handleSubmit = async (values: SignUpFormValues) => {
+    const [data, error] = await AuthAPI.createUser(values);
+
+    if (error != null) {
+      console.log(error);
+      return void 0;
+    }
+
+    localStorage.setItem("token", data.data.token);
+    console.log(data);
+    navigate("/");
+  };
+
   return (
     <Box
       component="form"
       maw={400}
       mx="auto"
-      onSubmit={form.onSubmit(() => {})}
+      onSubmit={form.onSubmit(handleSubmit)}
     >
       <Title order={3} align="center">
         Sign up
