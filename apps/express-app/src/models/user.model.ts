@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import { UserDocument } from "common-lib/src/types/users.types";
+import { UserDocument } from "common-lib/src/types";
 
 function setPassword(value: string) {
   return bcrypt.hashSync(value, 10);

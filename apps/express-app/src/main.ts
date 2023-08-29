@@ -63,7 +63,15 @@ app.use(
   "/graphql",
   cors<cors.CorsRequest>(),
   pkg.json(),
-  expressMiddleware(server)
+  expressMiddleware(server, {
+    context: async ({ req }) => {
+      const authorization = (req.headers.authorization ?? "").replace(
+        "Bearer ",
+        ""
+      );
+      return { authorization };
+    },
+  })
 );
 // * Express Middleware # end
 

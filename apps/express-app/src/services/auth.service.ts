@@ -7,6 +7,8 @@ import {
   UserDocumentSansID,
 } from "common-lib/src/types/users.types";
 
+// Give a random phrase to generate a secret key
+const SECRET_KEY = "a random phrase";
 const createUser = async ({
   name,
   email,
@@ -67,7 +69,7 @@ const getJWTToken = ({
   }
 
   if (bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ user }, "yourSecretKey", {
+    const token = jwt.sign({ user }, SECRET_KEY, {
       expiresIn: "24h",
     });
 
@@ -77,9 +79,22 @@ const getJWTToken = ({
   return [null, Error("Password mismatch")];
 };
 
+const getUserByToken = (token: string): UserDocument | null => {
+  const decoded = jwt.verify(token, SECRET_KEY);
+
+  if (!decoded) {
+    return null;
+  }
+
+  const { user } = decoded as { user: UserDocument };
+
+  return user;
+};
+
 const AuthService = {
   createUser,
   signinUser,
+  getUserByToken,
 };
 
 export default AuthService;

@@ -1,3 +1,4 @@
+import CartService from "../services/cart.service";
 import CategoryService from "../services/category.service";
 import ProductService from "../services/product.service";
 
@@ -19,6 +20,14 @@ const resolvers = {
     parentCategories: CategoryService.getParentCategories,
     childCategories: (_, args: { parentId: string }) =>
       CategoryService.getChildCategories(args.parentId),
+
+    cart: CartService.getUserCart,
+  },
+
+  Mutation: {
+    addProductToCart: CartService.addProductToCart,
+    removeProductFromCart: CartService.removeProductFromCart,
+    updateProductQuantityInCart: CartService.updateProductQuantityInCart,
   },
 };
 

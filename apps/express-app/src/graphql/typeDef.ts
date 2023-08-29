@@ -9,6 +9,14 @@ const typeDef = `#graphql
     categoriesWithChildren: [CategoryWithChildren],
     parentCategories: [Category],
     childCategories(parentId: ID!): [Category],
+
+    cart: Cart,
+  }
+
+  type Mutation {
+    addProductToCart(productId: String!, quantity: Int!): Cart,
+    removeProductFromCart(productId: String!): Cart,
+    updateProductQuantityInCart(productId: String!, quantity: Int!): Cart,
   }
 
   type Product {
@@ -39,6 +47,17 @@ const typeDef = `#graphql
     categoryID: String,
     name: String,
     children: [Category]
+  }
+
+  type Cart {
+    _id: ID!,
+    userId: String,
+    products: [CartProductDatum]
+  }
+
+  type CartProductDatum {
+    productId: String,
+    quantity: Int,
   }
 `;
 
