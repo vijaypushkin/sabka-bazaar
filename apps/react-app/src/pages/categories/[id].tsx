@@ -1,8 +1,10 @@
-import { Button, Flex } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductsByCategory } from "../../graphql/queries/products.query";
 import ProductCard from "../../components/products/ProductCard";
+
+import { useGetCart } from "../../graphql/queries/cart.queries";
 
 // import styles from './CategoriesIDPage.module.scss';
 
@@ -11,6 +13,7 @@ interface CategoriesIDPageProps {}
 const CategoriesIDPage: React.FC<CategoriesIDPageProps> = (props) => {
   const { id } = useParams();
   const { data } = useGetProductsByCategory(id ?? "");
+  const { data: cartData } = useGetCart();
 
   return (
     <Flex
@@ -22,7 +25,15 @@ const CategoriesIDPage: React.FC<CategoriesIDPageProps> = (props) => {
       wrap="wrap"
     >
       {data?.productsByCategory?.map((product) => (
-        <ProductCard key={product._id} product={product} />
+        <ProductCard
+          key={product._id}
+          product={product}
+          quantity={
+            cartData?.cart.products.find(
+              (item) => item.productId === product._id
+            )?.quantity
+          }
+        />
       ))}
     </Flex>
   );

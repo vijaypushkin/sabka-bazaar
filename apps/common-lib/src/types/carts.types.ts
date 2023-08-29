@@ -1,4 +1,7 @@
+import { ProductDatum } from "./products.types";
+
 export interface CartProductDatum {
+  productData: ProductDatum;
   productId: string;
   quantity: number;
 }
@@ -10,5 +13,5 @@ export interface CartDocument {
 }
 
 export interface GetUserCartDatum {
-  getUserCart: CartDocument;
+  cart: CartDocument;
 }

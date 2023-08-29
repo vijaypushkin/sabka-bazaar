@@ -2,15 +2,18 @@ import Product from "../models/product.model";
 
 const getAllProducts = async (limit: number, offset: number) => {
   const products = await Product.find().limit(limit).skip(offset);
-  console.log(products);
 
   return products;
 };
 
 const getProductById = async (id: string) => {
   const product = await Product.findById(id);
-  console.log(product);
   return product;
+};
+
+const getProductsById = async (ids: string[]) => {
+  const products = await Product.find({ _id: { $in: ids } });
+  return products;
 };
 
 const getProductsByCategory = async (category: string) => {
@@ -20,6 +23,7 @@ const getProductsByCategory = async (category: string) => {
 const ProductService = {
   getAllProducts,
   getProductById,
+  getProductsById,
   getProductsByCategory,
 };
 

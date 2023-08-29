@@ -26,8 +26,6 @@ const authGuard = (args, context) => {
 const getUserCart = async (parent, args, context, info) => {
   const user = authGuard(args, context);
 
-  console.log({ user });
-
   const { userId } = args;
   const cart = await Cart.findOne({
     userId: user._id,

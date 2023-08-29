@@ -57,6 +57,7 @@ const typeDef = `#graphql
 
   type CartProductDatum {
     productId: String,
+    productData: Product,
     quantity: Int,
   }
 `;

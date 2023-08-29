@@ -7,8 +7,23 @@ const getCart = gql`
       _id
       userId
       products {
-        productId
         quantity
+        productId
+        productData {
+          _id
+          productName
+          brand
+          description
+          sku
+          categories
+          price
+          specialPrice
+          promotionText
+          availableQuantity
+          isAvailable
+          images
+          packSize
+        }
       }
     }
   }

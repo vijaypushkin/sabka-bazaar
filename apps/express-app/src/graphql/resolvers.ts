@@ -7,7 +7,6 @@ const resolvers = {
     products: (_, args: { limit: number; offset: number }) =>
       ProductService.getAllProducts(args.limit, args.offset),
     product: (_, args: { id: string }) => {
-      console.log(args);
       return ProductService.getProductById(args.id);
     },
     productsByCategory: (_, args: { category: string }) =>
@@ -22,6 +21,11 @@ const resolvers = {
       CategoryService.getChildCategories(args.parentId),
 
     cart: CartService.getUserCart,
+  },
+
+  CartProductDatum: {
+    productData: (parent, args) =>
+      ProductService.getProductById(parent.productId),
   },
 
   Mutation: {
