@@ -5,6 +5,7 @@ import AppShell from "../components/layout/AppShell";
 const HomePage = React.lazy(() => import("../pages"));
 const CategoriesPage = React.lazy(() => import("../pages/categories"));
 const CategoriesIDPage = React.lazy(() => import("../pages/categories/[id]"));
+const AuthPage = React.lazy(() => import("../pages/auth"));
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
       {
         path: "/categories/:id",
         element: <CategoriesIDPage />,
+        errorElement: <div>Something went wrong</div>,
+      },
+      {
+        path: "/auth",
+        element: <AuthPage />,
         errorElement: <div>Something went wrong</div>,
       },
     ],
