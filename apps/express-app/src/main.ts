@@ -14,7 +14,9 @@ import AuthController from "./controller/auth.controller";
 const host = process.env.HOST ?? "localhost";
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-const app = express(); // * Mongoose # start
+const app = express();
+
+// * Mongoose # start
 const mongodbUrl = process.env.MONGODB_CONNECTION_STRING ?? "";
 
 mongoose.connect(mongodbUrl);
@@ -36,12 +38,14 @@ const server = new ApolloServer({ typeDefs, resolvers });
 await server.start();
 // * Apollo Server # end
 
+// * REST Endpoints # start
 app.get("/", (req, res) => {
   res.send({ message: "Hello API" });
 });
 
 app.post("/api/auth/sign-in", AuthController.handleSignIn);
 app.post("/api/auth/sign-up", AuthController.handleSignUp);
+// * REST Endpoints # end
 
 // * Static Files # start
 const staticFilesPath = path.join(
