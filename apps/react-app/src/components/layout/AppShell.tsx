@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { Link, Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import AppBar from "./AppBar";
 
 const AppShell: React.FC = () => {
   const theme = useMantineTheme();
@@ -36,46 +37,12 @@ const AppShell: React.FC = () => {
       //     </Aside>
       //   </MediaQuery>
       // }
-      footer={
-        <Footer height={60} p="md">
-          Application footer
-        </Footer>
-      }
-      header={
-        <Header height={{ base: 50, md: 70 }} p="md">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-
-            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-              <Title sx={{ marginRight: 24 }}>Sabka Bazaar</Title>
-            </MediaQuery>
-            <Flex
-              mih={50}
-              gap="md"
-              justify="flex-start"
-              align="center"
-              direction="row"
-            >
-              <Link to="/">Home</Link>
-              <Link to="/categories">Categories</Link>
-            </Flex>
-          </div>
-        </Header>
-      }
+      // footer={
+      //   <Footer height={60} p="md">
+      //     Sabka Bazaar © 2023
+      //   </Footer>
+      // }
+      header={<AppBar opened={opened} setOpened={setOpened} />}
     >
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />

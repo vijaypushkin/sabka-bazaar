@@ -6,6 +6,7 @@ const HomePage = React.lazy(() => import("../pages"));
 const CategoriesPage = React.lazy(() => import("../pages/categories"));
 const CategoriesIDPage = React.lazy(() => import("../pages/categories/[id]"));
 const AuthPage = React.lazy(() => import("../pages/auth"));
+const CartPage = React.lazy(() => import("../pages/cart"));
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <AuthPage />,
+        errorElement: <div>Something went wrong</div>,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
         errorElement: <div>Something went wrong</div>,
       },
     ],
