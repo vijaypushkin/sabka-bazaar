@@ -11,6 +11,7 @@ const resolvers = {
     },
     productsByCategory: (_, args: { category: string }) =>
       ProductService.getProductsByCategory(args.category),
+    productsWithPromo: ProductService.getProductsWithPromo,
 
     categories: CategoryService.getAllCategories,
     category: (_, args: { id: string }) =>

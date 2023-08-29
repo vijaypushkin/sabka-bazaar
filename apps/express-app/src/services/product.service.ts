@@ -11,8 +11,10 @@ const getProductById = async (id: string) => {
   return product;
 };
 
-const getProductsById = async (ids: string[]) => {
-  const products = await Product.find({ _id: { $in: ids } });
+const getProductsWithPromo = async (parent, args) => {
+  const products = await Product.find({ promotionText: { $ne: "" } })
+    .limit(args.limit)
+    .skip(args.offset);
   return products;
 };
 
@@ -23,7 +25,7 @@ const getProductsByCategory = async (category: string) => {
 const ProductService = {
   getAllProducts,
   getProductById,
-  getProductsById,
+  getProductsWithPromo,
   getProductsByCategory,
 };
 

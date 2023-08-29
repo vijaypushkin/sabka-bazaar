@@ -3,6 +3,7 @@ const typeDef = `#graphql
     products(limit: Int!, offset: Int!): [Product],
     product(id: ID!): Product,
     productsByCategory(category: String!): [Product],
+    productsWithPromo(limit: Int!, offset: Int!): [Product],
 
     categories: [Category],
     category(id: ID!): Category,

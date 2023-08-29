@@ -17,3 +17,7 @@ export interface ProductDatum {
 export interface GetProductsByCategoryDatum {
   productsByCategory: ProductDatum[];
 }
+
+export interface GetProductsWithPromoDatum {
+  productsWithPromo: ProductDatum[];
+}
