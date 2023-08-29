@@ -8,9 +8,7 @@ import { useGetCart } from "../../graphql/queries/cart.queries";
 
 // import styles from './CategoriesIDPage.module.scss';
 
-interface CategoriesIDPageProps {}
-
-const CategoriesIDPage: React.FC<CategoriesIDPageProps> = (props) => {
+const CategoriesIDPage: React.FC = () => {
   const { id } = useParams();
   const { data } = useGetProductsByCategory(id ?? "");
   const { data: cartData } = useGetCart();
