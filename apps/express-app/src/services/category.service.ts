@@ -30,11 +30,33 @@ const getChildCategories = async (id: string) => {
   return children;
 };
 
+const getCategoryWithChildren = async () => {
+  const categories = await Category.find();
+
+  const parentCategories = categories.filter(
+    (category) => category.children.length > 0
+  );
+
+  const categoryWithChildren = parentCategories.map((parent) => {
+    const children = categories.filter((category) =>
+      parent.children.includes(category.categoryID)
+    );
+
+    return {
+      ...parent.toObject(),
+      children,
+    };
+  });
+
+  return categoryWithChildren;
+};
+
 const CategoryService = {
   getAllCategories,
   getCategoryById,
   getChildCategories,
   getParentCategories,
+  getCategoryWithChildren,
 };
 
 export default CategoryService;

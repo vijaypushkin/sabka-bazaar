@@ -15,6 +15,7 @@ const resolvers = {
     categories: CategoryService.getAllCategories,
     category: (_, args: { id: string }) =>
       CategoryService.getCategoryById(args.id),
+    categoriesWithChildren: CategoryService.getCategoryWithChildren,
     parentCategories: CategoryService.getParentCategories,
     childCategories: (_, args: { parentId: string }) =>
       CategoryService.getChildCategories(args.parentId),

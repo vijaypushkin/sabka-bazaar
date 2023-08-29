@@ -14,6 +14,7 @@ import {
   Aside,
 } from "@mantine/core";
 import { Link, Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const AppShell: React.FC = () => {
   const theme = useMantineTheme();
@@ -31,23 +32,14 @@ const AppShell: React.FC = () => {
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={
-        <Navbar
-          p="md"
-          hiddenBreakpoint="sm"
-          hidden={!opened}
-          width={{ sm: 200, lg: 300 }}
-        >
-          <Text>Application navbar</Text>
-        </Navbar>
-      }
-      aside={
-        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-          <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-            <Text>Application sidebar</Text>
-          </Aside>
-        </MediaQuery>
-      }
+      navbar={<Sidebar opened={opened} />}
+      // aside={
+      //   <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+      //     <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
+      //       <Text>Application sidebar</Text>
+      //     </Aside>
+      //   </MediaQuery>
+      // }
       footer={
         <Footer height={60} p="md">
           Application footer

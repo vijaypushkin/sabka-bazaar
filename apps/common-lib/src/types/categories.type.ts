@@ -7,6 +7,20 @@ export interface CategoryDatum {
   name: string;
 }
 
+export interface NestedCategoryDatum {
+  _id: string;
+  categoryID: string;
+  children: CategoryDatum[];
+  name: string;
+}
+
+export interface GetCategoryWithChildrenDatum {
+  categoriesWithChildren: NestedCategoryDatum[];
+}
+
+export interface GetCategoryWithChildrenResponse
+  extends BaseApi<GetCategoryWithChildrenDatum> {}
+
 export interface GetCategoriesDatum {
   categories: CategoryDatum[];
 }

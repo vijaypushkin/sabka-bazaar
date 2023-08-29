@@ -1,16 +1,22 @@
 import { gql, useQuery } from "@apollo/client";
-import { GetParentCategoryResponse } from "common-lib/types";
+import { GetCategoryWithChildrenDatum } from "common-lib/types";
 
-export const getParentCategories = gql`
-  query GetAllCategories {
-    parentCategories {
+export const getCategoriesWithChildren = gql`
+  query GetCategoriesWithChildren {
+    categoriesWithChildren {
+      _id
       categoryID
-      children
       name
+      children {
+        _id
+        categoryID
+        name
+        children
+      }
     }
   }
 `;
 
-export const useGetParentCategories = () => {
-  return useQuery<GetParentCategoryResponse>(getParentCategories);
+export const useGetCategoriesWithChildren = () => {
+  return useQuery<GetCategoryWithChildrenDatum>(getCategoriesWithChildren);
 };
