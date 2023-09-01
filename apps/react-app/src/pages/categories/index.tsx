@@ -2,6 +2,7 @@ import { Box, Card, Divider, Flex, Text, Title } from "@mantine/core";
 import React from "react";
 import { useGetCategoriesWithChildren } from "../../graphql/queries/categories.query";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 const CategoriesPage: React.FC = () => {
   const { data } = useGetCategoriesWithChildren();
@@ -33,11 +34,13 @@ const CategoriesPage: React.FC = () => {
             wrap="wrap"
           >
             {category.children?.map((child) => (
-              <Card key={child._id} withBorder shadow="sm">
-                <Card.Section p="md">
-                  <Text size="lg">{child.name}</Text>
-                </Card.Section>
-              </Card>
+              <Link to={`/categories/${child.categoryID}`} key={child._id}>
+                <Card key={child._id} withBorder shadow="sm">
+                  <Card.Section p="md">
+                    <Text size="lg">{child.name}</Text>
+                  </Card.Section>
+                </Card>
+              </Link>
             ))}
           </Flex>
         </Box>
