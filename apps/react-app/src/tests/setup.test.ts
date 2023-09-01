@@ -9,6 +9,7 @@ afterEach(() => {
 });
 
 describe("setup", () => {
+  // @ts-ignore
   it("should pass", () => {
     expect(true).toBe(true);
   });

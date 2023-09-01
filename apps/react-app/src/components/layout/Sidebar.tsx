@@ -1,14 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Group,
-  NavLink,
-  Navbar,
-  Text,
-  UnstyledButton,
-  rem,
-  useMantineTheme,
-} from "@mantine/core";
+import { NavLink, Navbar } from "@mantine/core";
 import React from "react";
 import { useGetCategoriesWithChildren } from "../../graphql/queries/categories.query";
 import { Link, useLocation } from "react-router-dom";
