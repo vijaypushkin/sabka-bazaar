@@ -13,7 +13,6 @@ import { SignInFormValues } from "common-lib/types";
 import AuthAPI from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
 import { useLazyGetUser } from "../../graphql/queries/user.query";
-import { s } from "vitest/dist/reporters-2ff87305.js";
 
 // import styles from './SignUpForm.module.scss';
 
