@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, isEmail, hasLength } from "@mantine/form";
 import {
   Button,
@@ -7,11 +7,13 @@ import {
   Box,
   PasswordInput,
   Title,
+  Text,
 } from "@mantine/core";
 import { SignInFormValues } from "common-lib/types";
 import AuthAPI from "../../api/auth.api";
 import { useNavigate } from "react-router-dom";
 import { useLazyGetUser } from "../../graphql/queries/user.query";
+import { s } from "vitest/dist/reporters-2ff87305.js";
 
 // import styles from './SignUpForm.module.scss';
 
@@ -22,6 +24,8 @@ interface SignInFormProps {
 const SignInForm: React.FC<SignInFormProps> = (props) => {
   const navigate = useNavigate();
   const [_, { refetch }] = useLazyGetUser();
+
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<SignInFormValues>({
     initialValues: {
@@ -39,10 +43,12 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
   });
 
   const handleSubmit = async (values: SignInFormValues) => {
+    setError(null);
+
     const [data, error] = await AuthAPI.signInUser(values);
 
     if (error != null) {
-      console.log(error);
+      setError(error);
       return void 0;
     }
 
@@ -75,6 +81,12 @@ const SignInForm: React.FC<SignInFormProps> = (props) => {
         mt="md"
         {...form.getInputProps("password")}
       />
+
+      {error && (
+        <Text mt="md" color="red" size="md">
+          {error}
+        </Text>
+      )}
 
       <Group position="right" mt="md">
         <Button type="submit">Submit</Button>

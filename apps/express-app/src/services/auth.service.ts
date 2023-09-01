@@ -46,7 +46,7 @@ const signinUser = async ({
   });
 
   if (!user) {
-    return [null, Error("User not found")];
+    return [null, Error("This email is not registered, please sign up")];
   }
 
   const [token, tokenError] = getJWTToken({ user, password });
@@ -77,7 +77,7 @@ const getJWTToken = ({
     return [token, null];
   }
 
-  return [null, Error("Password mismatch")];
+  return [null, Error("Please check your password or email")];
 };
 
 const getUserByToken = (token: string): UserDocument | null => {

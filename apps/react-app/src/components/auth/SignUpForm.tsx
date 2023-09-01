@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, isEmail, hasLength } from "@mantine/form";
 import {
   Button,
@@ -7,6 +7,7 @@ import {
   Box,
   PasswordInput,
   Title,
+  Text,
 } from "@mantine/core";
 import { SignUpFormValues } from "common-lib/types";
 import AuthAPI from "../../api/auth.api";
@@ -22,6 +23,8 @@ interface SignUpFormProps {
 const SignUpForm: React.FC<SignUpFormProps> = (props) => {
   const navigate = useNavigate();
   const [_, { refetch }] = useLazyGetUser();
+
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<SignUpFormValues>({
     initialValues: {
@@ -44,10 +47,12 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
   });
 
   const handleSubmit = async (values: SignUpFormValues) => {
+    setError(null);
+
     const [data, error] = await AuthAPI.createUser(values);
 
     if (error != null) {
-      console.log(error);
+      setError(error);
       return void 0;
     }
 
@@ -96,6 +101,12 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
         withAsterisk
         {...form.getInputProps("confirmPassword")}
       />
+
+      {error && (
+        <Text mt="md" color="red" size="md">
+          {error}
+        </Text>
+      )}
 
       <Group position="right" mt="md">
         <Button type="submit">Submit</Button>

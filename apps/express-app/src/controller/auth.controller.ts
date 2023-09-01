@@ -12,6 +12,7 @@ const handleSignUp = async (req: Request, res: Response) => {
   const [data, error] = await AuthService.createUser({ name, email, password });
 
   if (error) {
+    res.statusMessage = error.message;
     return res.status(401).send({
       data: null,
       error: error.message as string,
@@ -30,6 +31,7 @@ const handleSignIn = async (req: Request, res: Response) => {
 
   console.log({ error });
   if (error) {
+    res.statusMessage = error.message;
     return res.status(401).send({
       data: null,
       error: error.message as string,
