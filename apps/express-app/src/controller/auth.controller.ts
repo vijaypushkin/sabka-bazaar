@@ -12,9 +12,9 @@ const handleSignUp = async (req: Request, res: Response) => {
   const [data, error] = await AuthService.createUser({ name, email, password });
 
   if (error) {
-    return res.status(500).send({
+    return res.status(401).send({
       data: null,
-      error: error,
+      error: error.message as string,
     });
   }
 
@@ -28,10 +28,11 @@ const handleSignIn = async (req: Request, res: Response) => {
 
   const [token, error] = await AuthService.signinUser({ email, password });
 
+  console.log({ error });
   if (error) {
-    return res.status(500).send({
+    return res.status(401).send({
       data: null,
-      error: error,
+      error: error.message as string,
     });
   }
 
