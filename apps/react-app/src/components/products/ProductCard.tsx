@@ -57,6 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
               backgroundColor: theme.colors.blue[4],
             },
           }}
+          aria-label="Product images"
         >
           {props.product.images.map((image) => (
             <Carousel.Slide

@@ -1,6 +1,7 @@
+import { CategoryDatum } from "common-lib/src/types";
 import { Schema, model } from "mongoose";
 
-const CategorySchema = new Schema({
+const CategorySchema = new Schema<CategoryDatum>({
   categoryID: String,
   name: String,
   children: [String],

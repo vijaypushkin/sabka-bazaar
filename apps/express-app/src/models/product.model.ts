@@ -1,6 +1,7 @@
+import { ProductDatum } from "common-lib/src/types";
 import { Schema, model } from "mongoose";
 
-const ProductSchema = new Schema({
+const ProductSchema = new Schema<ProductDatum>({
   productName: String,
   brand: String,
   description: String,
