@@ -3,6 +3,7 @@ import { useGetProductsWithPromo } from "../graphql/queries/products.query";
 import { Box, Flex, Text, Title } from "@mantine/core";
 import ProductCard from "../components/products/ProductCard";
 import { useGetCart } from "../graphql/queries/cart.queries";
+import { Helmet } from "react-helmet";
 
 // import styles from './HomePage.module.scss';
 
@@ -14,6 +15,10 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sabka Bazaar - Promotions</title>
+      </Helmet>
       <Box mb="lg">
         <Title order={1}>Offer Zone</Title>
         <Text variant="gradient" size="lg">

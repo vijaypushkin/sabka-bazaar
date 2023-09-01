@@ -1,11 +1,16 @@
 import { Box, Card, Divider, Flex, Text, Title } from "@mantine/core";
 import React from "react";
 import { useGetCategoriesWithChildren } from "../../graphql/queries/categories.query";
+import { Helmet } from "react-helmet";
 
 const CategoriesPage: React.FC = () => {
   const { data } = useGetCategoriesWithChildren();
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sabka Bazaar - Categories</title>
+      </Helmet>
       <Title order={1}>Shop By</Title>
 
       {data?.categoriesWithChildren?.map((category) => (
