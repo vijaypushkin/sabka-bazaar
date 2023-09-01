@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Badge,
   Button,
@@ -22,7 +22,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = (props) => {
   const theme = useMantineTheme();
-  const [addToCart, { loading }] = useAddProductToCart();
+  const [addToCart, { loading, error }] = useAddProductToCart();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleAddToCart = () => {
     addToCart({
@@ -32,6 +33,16 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
       },
     });
   };
+
+  useEffect(() => {
+    if (error) {
+      setErrorMsg("Not logged in");
+
+      setTimeout(() => {
+        setErrorMsg(null);
+      }, 3000);
+    }
+  }, [error]);
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder w={300}>
@@ -87,7 +98,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
 
       <Button
         variant="light"
-        color="blue"
+        color={errorMsg == null ? "blue" : "red"}
         fullWidth
         mt="md"
         radius="md"
@@ -95,7 +106,11 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
         loading={loading}
         disabled={(props.quantity ?? 0) > 0}
       >
-        {(props.quantity ?? 0) > 0 ? "Added to Cart" : "Add to Cart"}
+        {errorMsg != null
+          ? errorMsg
+          : (props.quantity ?? 0) > 0
+          ? "Added to Cart"
+          : "Add to Cart"}
       </Button>
     </Card>
   );
